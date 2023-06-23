@@ -1,6 +1,9 @@
 <%@page import="java.util.ArrayList" %>
 <%@ page import="pe.edu.pucp.tel131lab9.bean.Post" %>
+<%@ page import="pe.edu.pucp.tel131lab9.bean.Comment" %>
 <jsp:useBean id="posts" type="java.util.ArrayList<pe.edu.pucp.tel131lab9.bean.Post>" scope="request"/>
+<jsp:useBean id="comments" type="java.util.ArrayList<pe.edu.pucp.tel131lab9.bean.Comment>" scope="request"/>
+<jsp:useBean id="user" type="pe.edu.pucp.tel131lab9.bean.Employee" scope="session" class="pe.edu.pucp.tel131lab9.bean.Employee"/>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -18,19 +21,34 @@
         <div class="col-md-7">
             <h1>Home</h1>
         </div>
+        <% if(user.getEmployeeId() == 0) {%>
+
+        <%} else {%>
         <div class="col-md-5 col-lg-4 ms-auto my-auto text-md-end">
             <a href="<%= request.getContextPath()%>/PostServlet?action=new" class="btn btn-primary">New Post</a>
         </div>
+        <%} %>
+
+
     </div>
     <div class="row">
         <%for (Post p : posts) {%>
         <div class="col-sm-4 py-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title"><%= p.getTitle()%></h5>
-                    <h6 class="card-subtitle mb-2 text-muted"><%= p.getEmployee().getFirstName() + p.getEmployee().getLastName()%></h6>
+                    <h3 class="card-title"><%= p.getTitle()%></h3>
+                    <h6 class="card-subtitle mb-2 text-muted"><%= p.getEmployee().getFirstName() + " " + p.getEmployee().getLastName()%></h6>
+                    <p class="card-text"><%= p.getDatetime()%></p>
                     <p class="card-text"><%= p.getContent()%></p>
+                    <%int i = 0;%>
+                    <%for (Comment c : comments) {%>
+                        <%if(p.getPostId() == c.getPostId()){%>
+                            <% i = i +1;%>
+                        <%}%>
+                    <%}%>
+                    <p class="card-text"><%=i%> comments
                     <a href="<%= request.getContextPath()%>/PostServlet?action=view&id=<%=p.getPostId()%>" class="btn btn-primary">View</a>
+                    </p>
                 </div>
             </div>
         </div>

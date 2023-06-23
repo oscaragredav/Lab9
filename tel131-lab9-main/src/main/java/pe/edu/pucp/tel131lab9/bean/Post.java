@@ -1,10 +1,13 @@
 package pe.edu.pucp.tel131lab9.bean;
 
+import java.sql.Timestamp;
+
 public class Post {
     private int postId;
     private String title;
     private String content;
     private int employeeId;
+    private Timestamp datetime;
     private Employee employee;
 
     public Employee getEmployee() {
@@ -45,5 +48,13 @@ public class Post {
 
     public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public Timestamp getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(Timestamp datetime) {
+        this.datetime = datetime;
     }
 }
