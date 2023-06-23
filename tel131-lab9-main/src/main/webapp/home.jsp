@@ -5,6 +5,8 @@
 <jsp:useBean id="comments" type="java.util.ArrayList<pe.edu.pucp.tel131lab9.bean.Comment>" scope="request"/>
 <jsp:useBean id="user" type="pe.edu.pucp.tel131lab9.bean.Employee" scope="request" class="pe.edu.pucp.tel131lab9.bean.Employee"/>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+<% ArrayList<Post> lista = (ArrayList<Post>) request.getAttribute("lista");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,9 +23,24 @@
         <div class="col-md-7">
             <h1>Home</h1>
         </div>
+
         <% if(user.getEmployeeId() == 0) {%>
 
         <%} else {%>
+
+        <div class="row">
+            <div class="col-9">
+                <div class="form-floating">
+                    <form method="post" action="<%=request.getContextPath()%>/PostServlet?action=buscar">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" placeholder="Buscador" name="textoBuscar">
+                            <label>Buscar </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div class="col-md-5 col-lg-4 ms-auto my-auto text-md-end">
             <a href="<%= request.getContextPath()%>/PostServlet?action=new" class="btn btn-primary">New Post</a>
         </div>

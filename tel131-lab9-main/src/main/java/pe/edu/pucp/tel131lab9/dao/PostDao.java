@@ -74,6 +74,7 @@ public class PostDao extends DaoBase{
         employee.setLastName(rs.getString("e.last_name"));
         post.setEmployee(employee);
     }
+
     public ArrayList<Post> buscarPost(String title){
         ArrayList<Post> lista = new ArrayList<>();
 
@@ -83,7 +84,8 @@ public class PostDao extends DaoBase{
             e.printStackTrace();
         }
 
-        String sql = "select * from post where title like ? or content like ? or employee like ?";
+        String sql = "select * from post where title like ? or content like ? or employee_id like ?";
+//        p.getEmployee().getFirstName() + p.getEmployee().getLastName()
         String url = "jdbc:mysql://localhost:3306/hr";
 
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
@@ -101,6 +103,7 @@ public class PostDao extends DaoBase{
                     post.setTitle(resultSet.getString(2));
                     post.setContent(resultSet.getString(3));
                     post.setEmployeeId(resultSet.getInt(4));
+                    post.setDatetime(resultSet.getTimestamp(5));
                     lista.add(post);
                 }
             }
@@ -112,4 +115,8 @@ public class PostDao extends DaoBase{
 
         return lista;
     }
+
+
+
+
 }
