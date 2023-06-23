@@ -3,7 +3,7 @@
 <%@ page import="pe.edu.pucp.tel131lab9.bean.Comment" %>
 <jsp:useBean id="posts" type="java.util.ArrayList<pe.edu.pucp.tel131lab9.bean.Post>" scope="request"/>
 <jsp:useBean id="comments" type="java.util.ArrayList<pe.edu.pucp.tel131lab9.bean.Comment>" scope="request"/>
-<jsp:useBean id="user" type="pe.edu.pucp.tel131lab9.bean.Employee" scope="session" class="pe.edu.pucp.tel131lab9.bean.Employee"/>
+<jsp:useBean id="user" type="pe.edu.pucp.tel131lab9.bean.Employee" scope="request" class="pe.edu.pucp.tel131lab9.bean.Employee"/>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>

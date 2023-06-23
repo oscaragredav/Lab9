@@ -10,7 +10,6 @@ public class Comment {
     private String comment;
     private Timestamp datetime;
 
-
     public Timestamp getDatetime() {
         return datetime;
     }

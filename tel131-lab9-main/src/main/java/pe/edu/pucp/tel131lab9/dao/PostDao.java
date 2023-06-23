@@ -74,5 +74,42 @@ public class PostDao extends DaoBase{
         employee.setLastName(rs.getString("e.last_name"));
         post.setEmployee(employee);
     }
+    public ArrayList<Post> buscarPost(String title){
+        ArrayList<Post> lista = new ArrayList<>();
 
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String sql = "select * from post where title like ? or content like ? or employee like ?";
+        String url = "jdbc:mysql://localhost:3306/hr";
+
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, "%" + title + "%");
+            preparedStatement.setString(2, "%" + title + "%");
+            preparedStatement.setString(3, "%" + title + "%");
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                while (resultSet.next()) {
+                    Post post = new Post();
+                    post.setPostId(resultSet.getInt(1));
+                    post.setTitle(resultSet.getString(2));
+                    post.setContent(resultSet.getString(3));
+                    post.setEmployeeId(resultSet.getInt(4));
+                    lista.add(post);
+                }
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return lista;
+    }
 }

@@ -28,7 +28,11 @@ public class PostServlet extends HttpServlet {
         String action = req.getParameter("action") != null ? req.getParameter("action") : "";
 
         if (action.equals("new")) {
-            // TODO
+            PostDao postDao = new PostDao();
+
+            req.setAttribute("posts", postDao.listPosts());
+            view = req.getRequestDispatcher("post/newPost.jsp");
+            view.forward(req, resp);
         }
         else if (action.equals("view")) {
             String id = req.getParameter("id") != null ? req.getParameter("id") : "";
@@ -39,7 +43,15 @@ public class PostServlet extends HttpServlet {
             req.setAttribute("comments", commentDao.listCommentsByPostId(Integer.parseInt(id)));
             view = req.getRequestDispatcher("post/viewPost.jsp");
             view.forward(req, resp);
+
+        } else if (action.equals("buscar")) {
+            PostDao postDao = new PostDao();
+            String textoBuscar = req.getParameter("textoBuscar");
+            req.setAttribute("lista", postDao.buscarPost(textoBuscar));
+            req.getRequestDispatcher("usuario/postearUsuariosOficial.jsp").forward(req, resp);
+
         }
+
 
     }
 }
