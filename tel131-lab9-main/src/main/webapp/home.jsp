@@ -2,6 +2,8 @@
 <%@ page import="pe.edu.pucp.tel131lab9.bean.Post" %>
 <jsp:useBean id="posts" type="java.util.ArrayList<pe.edu.pucp.tel131lab9.bean.Post>" scope="request"/>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+<% ArrayList<Post> lista = (ArrayList<Post>) request.getAttribute("lista");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +19,18 @@
     <div class="row mb-5 mt-4">
         <div class="col-md-7">
             <h1>Home</h1>
+        </div>
+        <div class="row">
+            <div class="col-9">
+                <div class="form-floating">
+                    <form method="post" action="<%=request.getContextPath()%>/PostServlet?action=buscar">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" placeholder="Buscador" name="textoBuscar">
+                            <label>Buscar </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="col-md-5 col-lg-4 ms-auto my-auto text-md-end">
             <a href="<%= request.getContextPath()%>/PostServlet?action=new" class="btn btn-primary">New Post</a>
